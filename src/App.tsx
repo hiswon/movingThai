@@ -176,7 +176,7 @@ const bibleVerses: BibleVerse[] = [
 const usefulLinks: UsefulLink[] = [
   {
     nameTh: "ระบบ HiKorea (ไฮโคเรีย)",
-    nameKr: "하이코เรีย (출입국 민원)",
+    nameKr: "하이코리아 (출입국 민원)",
     descTh: "จองคิว จองเวลา และต่ออายุวีซ่า/เปลี่ยนที่อยู่",
     descKr: "비자 연장, 주소지 변경, 출입국 방문 예약",
     url: "https://www.hikorea.go.kr",
@@ -184,7 +184,7 @@ const usefulLinks: UsefulLink[] = [
   },
   {
     nameTh: "ระบบ EPS (การจ้างงาน)",
-    nameKr: "EPS 외국인고용ระบบ",
+    nameKr: "EPS 외국인고용",
     descTh: "ตรวจสอบสัญญาจ้าง สิทธิ และย้ายงาน",
     descKr: "근로계약서, 체류기간 및 이직 내역 조회",
     url: "https://www.eps.go.kr",
@@ -200,7 +200,7 @@ const usefulLinks: UsefulLink[] = [
   },
   {
     nameTh: "สถานเอกอัครราชทูตไทย ณ กรุงโซล",
-    nameKr: "주한 태국대สา관",
+    nameKr: "주한 태국대사관",
     descTh: "หนังสือเดินทาง (พาสปอร์ต) และงานกงสุลไทย",
     descKr: "태국 여권 재발급, 영사 및 태국 정부 행정 서비스",
     url: "https://seoul.thaiembassy.org",
@@ -224,7 +224,7 @@ const usefulLinks: UsefulLink[] = [
   },
   {
     nameTh: "ระบบการพัฒนาทรัพยากรมนุษย์ (HRD Korea)",
-    nameKr: "한국산업인력공단 (EPSประกัน)",
+    nameKr: "한국산업인력공단 (EPS)",
     descTh: "ประกันค่าเดินทางกลับประเทศ และเงินชดเชยการออกจากงาน",
     descKr: "귀국비용보험, 출국만기보험 신청 및 수령 안내",
     url: "https://www.hrdkorea.or.kr",
@@ -240,7 +240,7 @@ const usefulLinks: UsefulLink[] = [
   },
   {
     nameTh: "ศูนย์จราอุลซาน (รถบัสประจำทาง)",
-    nameKr: "울산교통관리센터 (버스ข้อมูล)",
+    nameKr: "울산교통관리센터 (버스정보)",
     descTh: "เช็กเวลารถบัสประจำทางในอุลซานสำหรับการเดินทางไปทำงาน",
     descKr: "울산 공단 출퇴근 버스 실시간 노선 및 시간표",
     url: "https://its.ulsan.kr",
