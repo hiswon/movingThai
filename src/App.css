@@ -307,3 +307,192 @@ body {
   font-weight: 600;
   color: var(--accent-color);
 }
+
+/* Subway Map Style Section */
+.subway-section {
+  background: white;
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 36px;
+  border: 1px solid #edf2f7;
+}
+
+.subway-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.metro-badge {
+  background: #2b6cb0;
+  color: white;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 12px;
+  letter-spacing: 1px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.subway-header h3 {
+  font-size: 1.35rem;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.subway-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-sub);
+}
+
+.subway-map-container {
+  position: relative;
+  padding-left: 20px;
+}
+
+/* 지하철 레일선 */
+.subway-line {
+  position: absolute;
+  left: 39px;
+  top: 15px;
+  bottom: 30px;
+  width: 6px;
+  background: linear-gradient(to bottom, #319795, #2b6cb0, #ff7e5f);
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.subway-stations {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.subway-station-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* 역 포인트 (Node) */
+.station-node-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  flex-shrink: 0;
+}
+
+.station-node {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: white;
+  border: 4px solid #2b6cb0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.subway-station-item:hover .station-node {
+  transform: scale(1.15);
+  border-color: var(--primary-color);
+  background: var(--primary-color);
+}
+
+.subway-station-item:hover .node-number {
+  color: white;
+}
+
+.node-number {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #2b6cb0;
+}
+
+/* 역 정보 카드 */
+.station-info-card {
+  background: #f7fafc;
+  border-radius: 12px;
+  padding: 16px 20px;
+  flex-grow: 1;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.subway-station-item:hover .station-info-card {
+  background: white;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+  border-color: var(--primary-color);
+}
+
+.station-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.station-header h4 {
+  font-size: 1.05rem;
+  color: #1a202c;
+  font-weight: 700;
+}
+
+.station-verse {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #319795;
+  background: #e6fffa;
+  padding: 3px 8px;
+  border-radius: 8px;
+}
+
+.station-desc {
+  font-size: 0.9rem;
+  color: var(--text-sub);
+  line-height: 1.4;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 600px) {
+  .subway-line {
+    left: 29px;
+  }
+  .station-node-wrapper {
+    width: 24px;
+  }
+  .station-node {
+    width: 28px;
+    height: 28px;
+    border-width: 3px;
+  }
+  .node-number {
+    font-size: 0.75rem;
+  }
+}
+
+/* 노선도 카드 내부 성경 본문 인용구 스타일 */
+.station-verse-text {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border-left: 3px solid #2b6cb0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #2d3748;
+  line-height: 1.5;
+}
+
+.subway-station-item:hover .station-verse-text {
+  border-left-color: var(--primary-color);
+  background: #fff5f2;
+}
