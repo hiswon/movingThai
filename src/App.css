@@ -1,184 +1,309 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+:root {
+  --primary-color: #ff7e5f;
+  --secondary-color: #feb47b;
+  --bg-color: #fffaf5;
+  --card-bg: #ffffff;
+  --text-main: #2d3748;
+  --text-sub: #718096;
+  --accent-color: #319795;
+  --radius: 16px;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
 }
 
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-#center {
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 900px;
+  min-height: 100vh;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
 }
 
-#next-steps {
+/* Header */
+.header {
   display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  margin-bottom: 20px;
 }
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+.logo h1 {
+  font-size: 1.6rem;
+  color: var(--primary-color);
+  font-weight: 800;
 }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
+.logo h1 span {
+  font-size: 0.9rem;
+  color: var(--text-sub);
+  font-weight: 400;
+}
+
+.lang-toggle-btn {
+  background: white;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lang-toggle-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Hero Section */
+.hero-section {
+  background: white;
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+
+.hero-image-wrapper {
   display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
+  gap: 12px;
+  height: 200px;
+  margin-bottom: 20px;
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+.hero-img {
+  object-fit: cover;
+  border-radius: 12px;
 }
 
-.ticks {
-  position: relative;
+.main-img {
+  flex: 2;
   width: 100%;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+.sub-img {
+  flex: 1;
+  width: 100%;
+}
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
+.hero-text h2 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+.hero-text p {
+  color: var(--text-sub);
+  font-size: 0.95rem;
+}
+
+/* 오늘의 말씀 (Verse Card) */
+.verse-card {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 12px 20px rgba(255, 126, 95, 0.25);
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.verse-badge {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.verse-body .verse-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.verse-body .verse-ref {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Info Section */
+.info-section {
+  margin-bottom: 30px;
+}
+
+.section-title h3 {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  color: var(--text-main);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.info-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--accent-color);
+}
+
+.info-card h4 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+.info-card p {
+  font-size: 0.9rem;
+  color: var(--text-sub);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.info-card .contact span {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+/* Gallery Section */
+.gallery-section {
+  margin-bottom: 30px;
+}
+
+.gallery-card {
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.gallery-desc {
+  padding: 20px;
+}
+
+.gallery-desc h4 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.gallery-desc p {
+  font-size: 0.9rem;
+  color: var(--text-sub);
+}
+
+/* Footer */
+.footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+  border-top: 1px solid #edf2f7;
+}
+
+/* Responsive UI */
+@media (max-width: 600px) {
+  .hero-image-wrapper {
+    flex-direction: column;
+    height: auto;
   }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
+  .sub-img {
+    display: none;
   }
+}
+
+/* Links Section Style */
+.links-section {
+  margin-bottom: 36px;
+}
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.link-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #edf2f7;
+  transition: all 0.25s ease;
+}
+
+.link-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(255, 126, 95, 0.15);
+  border-color: var(--primary-color);
+}
+
+.link-category {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  background: #fff5f2;
+  padding: 4px 10px;
+  border-radius: 12px;
+  align-self: flex-start;
+  margin-bottom: 10px;
+}
+
+.link-card h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #1a202c;
+}
+
+.link-card p {
+  font-size: 0.88rem;
+  color: var(--text-sub);
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.link-action {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-color);
 }
