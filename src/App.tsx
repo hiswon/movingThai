@@ -222,6 +222,7 @@ const bibleVerses: BibleVerse[] = [
 ];
 
 // 울산 태국 노동자를 위한 필수 웹사이트 10선 데이터 전체
+
 const usefulLinks: UsefulLink[] = [
   {
     nameTh: "ระบบ HiKorea (ไฮโคเรีย)",
@@ -240,70 +241,71 @@ const usefulLinks: UsefulLink[] = [
     category: "แรงงาน / Labour"
   },
   {
-    nameTh: "ศูนย์ช่วยเหลือแรงงานต่างชาติอุลซาน",
+    nameTh: "ศูนย์สนับสนุนแรงงานต่างชาติอุลซาน",
     nameKr: "울산외국인주민지원센터",
-    descTh: "คำปรึกษาด้านกฎหมาย แรงงาน และการใช้ชีวิตในอุลซาน",
-    descKr: "울산 거주 외국인 노무·법률·생활 상담",
-    url: "http://www.ulsanfic.org",
-    category: "สนับสนุน / Support"
+    descTh: "รับปรึกษาข้อกฎหมาย ล่ามภาษาไทย และกิจกรรมในอุลซาน",
+    descKr: "울산 지역 무료 법률·노무 상담 및 한국어 교육",
+    url: "http://usfr.or.kr",
+    category: "อุลซาน / Ulsan"
   },
   {
     nameTh: "สถานเอกอัครราชทูตไทย ณ กรุงโซล",
     nameKr: "주한 태국대사관",
-    descTh: "หนังสือเดินทาง เอกสารราชการ และความช่วยเหลือคนไทย",
-    descKr: "여권 재발급, 공증, 태국 국민 긴급 지원",
+    descTh: "หนังสือเดินทาง (พาสปอร์ต) และงานกงสุลไทย",
+    descKr: "태국 여권 재발급, 영사 및 태국 정부 행정 서비스",
     url: "https://seoul.thaiembassy.org",
     category: "สถานทูต / Embassy"
   },
   {
-    nameTh: "สายด่วนกระทรวงแรงงาน (1350)",
-    nameKr: "고용노동부 상담센터 (1350)",
-    descTh: "ปรึกษาปัญหาค่าจ้าง การทำงาน และการละเมิดสิทธิ (มีล่าม)",
-    descKr: "임금 체불, 노동권 침해 상담 (통역 제공)",
-    url: "https://www.moel.go.kr",
-    category: "แรงงาน / Labour"
-  },
-  {
-    nameTh: "ศูนย์บริการช่วยเหลือต่างชาติ (1345)",
-    nameKr: "외국인 종합안내센터 (1345)",
-    descTh: "ศูนย์บริการข้อมูลวีซ่าและการใช้ชีวิตแบบมัลติภาษา",
-    descKr: "출입국·체류 안내 및 다어 통역 서비스",
-    url: "https://www.immigration.go.kr",
-    category: "วีซ่า / Visa"
-  },
-  {
     nameTh: "สำนักงานประกันสุขภาพแห่งชาติ (NHIS)",
     nameKr: "국민건강보험공단",
-    descTh: "ตรวจสอบสิทธิการรักษาพยาบาลและค่าประกันสุขภาพ",
-    descKr: "외국인 건강보험 자격 조회 및 자격 관리",
+    descTh: "ตรวจสอบสิทธิประกันสุขภาพและการจ่ายเบี้ยประกัน",
+    descKr: "외국인 건강보험 자격, 보험료 및 병원 안내",
     url: "https://www.nhis.or.kr",
-    category: "การแพทย์ / Medical"
+    category: "สุขภาพ / Medical"
   },
   {
-    nameTh: "สถาบันพัฒนาทรัพยากรมนุษย์แห่งเกาหลี (HRD Korea)",
-    nameKr: "한국산업인력공단",
-    descTh: "อบรมทักษะงาน สอบวัดระดับ และสนับสนุนการทำงาน",
-    descKr: "외국인력 재귀환 지원 및 직무 교육",
+    nameTh: "สวัสดิการการชดเชยอุบัติเหตุจากการทำงาน (KCOMWEL)",
+    nameKr: "근로복지공단 (산재보험)",
+    descTh: "การยื่นขอรับเงินชดเชยเมื่อเจ็บป่วยหรือบาดเจ็บจากการทำงาน",
+    descKr: "산업재해(산재) 신청 및 미지급 임금 대지급금",
+    url: "https://www.comwel.or.kr",
+    category: "สวัสดิการ / Welfare"
+  },
+  {
+    nameTh: "ระบบการพัฒนาทรัพยากรมนุษย์ (HRD Korea)",
+    nameKr: "한국산업인력공단 (EPS)",
+    descTh: "ประกันค่าเดินทางกลับประเทศ และเงินชดเชยการออกจากงาน",
+    descKr: "귀국비용보험, 출국만기보험 신청 및 수령 안내",
     url: "https://www.hrdkorea.or.kr",
-    category: "การศึกษา / Training"
+    category: "ประกัน / Insurance"
   },
   {
-    nameTh: "ระบบขนส่งมวลชนเมืองอุลซาน",
-    nameKr: "울산버스정보앱 (Ulsan Bus)",
-    descTh: "เส้นทางรถประจำทางและเวลาวิ่งในเมืองอุลซาน",
-    descKr: "울산 시내버스 실시간 운행 정보 및 노선 안내",
-    url: "https://its.ulsan.go.kr",
-    category: "การเดินทาง / Transport"
+    nameTh: "เว็บไซต์หางาน Work24 (고용24)",
+    nameKr: "고용24 (구 워크넷)",
+    descTh: "ค้นหางานอย่างถูกต้องตามกฎหมายและสิทธิประโยชน์",
+    descKr: "공식 구직 및 채용 정보, 고용보험 서비스",
+    url: "https://www.work24.go.kr",
+    category: "หางาน / Jobs"
   },
   {
-    nameTh: "ศูนย์สายด่วนเจ็บป่วยฉุกเฉิน (119 / Danuri 1577-1366)",
-    nameKr: "다누리 콜센터 (1577-1366)",
-    descTh: "สายด่วนช่วยเหลือฉุกเฉินและการปรับตัวในเกาหลี 24 ชม.",
-    descKr: "외국인 긴급 지원 및 24시간 다문화 상담",
+    nameTh: "ศูนย์จราอุลซาน (รถบัสประจำทาง)",
+    nameKr: "울산교통관리센터 (버스정보)",
+    descTh: "เช็กเวลารถบัสประจำทางในอุลซานสำหรับการเดินทางไปทำงาน",
+    descKr: "울산 공단 출퇴근 버스 실시간 노선 및 시간표",
+    url: "https://its.ulsan.kr",
+    category: "จราจร / Transport"
+  },
+  {
+    nameTh: "ดานูรี (Danuri Portal)",
+    nameKr: "다누리 포털 (생활정보)",
+    descTh: "ข้อมูลการดำเนินชีวิตในเกาหลีและสายด่วนช่วยเหลือ (1345/1350)",
+    descKr: "다국어 생활 정보 및 긴급 상담 전화 안내",
     url: "https://www.liveinkorea.kr",
-    category: "ฉุกเฉิน / Emergency"
+    category: "การใช้ชีวิต / Life"
   }
 ];
+
 
 export const App: React.FC = () => {
   const [isKorean, setIsKorean] = useState<boolean>(false);
