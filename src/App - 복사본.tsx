@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { QRCodeSVG } from 'qrcode.react';
 import './App.css';
 
 // assets 이미지 불러오기
@@ -170,7 +169,7 @@ const gospelRoute: GospelStation[] = [
     verseTh: "โรม 10:10",
     verseKr: "โรมาสาร 10:10",
     verseTextTh: "เพราะว่าการเชื่อด้วยใจนำไปสู่ความชอบธรรม และการยอมรับด้วยปากนำไปสู่ความรอด",
-    verseTextKr: "사람이 마음으로 믿어 의에 이르이고 입으로 시인하여 구원에 이르นิ라"
+    verseTextKr: "사람이 마음으로 믿어 의에 이르이고 입으로 시인하여 구원에 이르느นิ라"
   },
   {
     id: 8,
@@ -184,7 +183,6 @@ const gospelRoute: GospelStation[] = [
     verseTextKr: "이것들을 증언하신 이가 이르시되 내가 진실로 속히 오리라 하시거늘 아멘 주 예수여 오시옵소서"
   }
 ];
-
 
 const bibleVerses: BibleVerse[] = [
   { th: "เพราะว่าพระเจ้าทรงรักโลกจนได้ทรงประทานพระบุตรองค์เดียวของพระองค์", kr: "하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니", refTh: "(ยอห์น 3:16)", refKr: "(요 3:16)" },
@@ -223,7 +221,8 @@ const bibleVerses: BibleVerse[] = [
   { th: "ความรักมั่นคงของพระยาห์เวห์ไม่เคยหยุดยั้ง พระกรุณาของพระองค์ไม่เคยสิ้นสุด เป็นของใหม่อยู่ทุกเช้า ความซื่อสัตย์ของพระองค์ใหญ่ยิ่งนัก", kr: "여호와의 인자와 성실이 무궁하시므로 우리가 진멸되지 아니함이니이다 이것들이 아침마다 새로우니 주의 성실하심이 크시도소이다", refTh: "(เพลงคร่ำครวญ 3:22-23)", refKr: "(애 3:22-23)" }
 ];
 
-// 울산 태국 노동자를 위한 필수 웹사이트 10선 데이터
+// 울산 태국 노동자를 위한 필수 웹사이트 10선 데이터 전체
+
 const usefulLinks: UsefulLink[] = [
   {
     nameTh: "ระบบ HiKorea (ไฮโคเรีย)",
@@ -312,8 +311,6 @@ export const App: React.FC = () => {
   const [isKorean, setIsKorean] = useState<boolean>(false);
   const [todayVerse, setTodayVerse] = useState<BibleVerse | null>(null);
   const [activeTab, setActiveTab] = useState<'home' | 'electric' | 'korean'>('home');
-
-  const appUrl = "https://moving-thai.vercel.app/";
 
   // 전기세 분배 계산기 State
   const [totalBill, setTotalBill] = useState<number>(0);
@@ -680,28 +677,6 @@ export const App: React.FC = () => {
           </section>
         </main>
       )}
-
-      {/* 하단 QR 코드 섹션 */}
-      <section className="qr-section" style={{
-        backgroundColor: '#ffffff',
-        padding: '24px 16px',
-        margin: '20px auto 0 auto',
-        maxWidth: '600px',
-        borderRadius: '12px',
-        textAlign: 'center',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)'
-      }}>
-        <h4 style={{ margin: '0 0 8px 0', color: '#333' }}>
-          {isKorean ? "📱 카메라로 스캔하여 공유하기" : "📱 สแกนเพื่อเข้าสู่เว็บไซต์"}
-        </h4>
-        <p style={{ fontSize: '0.85rem', color: '#666', margin: '0 0 16px 0' }}>
-          {isKorean ? "상대방 카메라로 찍으면 웹사이트로 연결됩니다." : "สแกน QR Code นี้ด้วยกล้องเพื่อเปิดเว็บไซต์"}
-        </p>
-        <div style={{ display: 'inline-block', padding: '12px', backgroundColor: '#fff', border: '1px solid #eee', borderRadius: '8px' }}>
-          <QRCodeSVG value={appUrl} size={150} level="H" />
-        </div>
-        <p style={{ fontSize: '0.8rem', color: '#888', marginTop: '8px' }}>{appUrl}</p>
-      </section>
 
       {/* 푸터 */}
       <footer className="footer">
