@@ -6,6 +6,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyABsS0eblW6rBz5nveIVp7hAs3q61XMjlA",
   authDomain: "thaitalk-36d2b.firebaseapp.com",
   projectId: "thaitalk-36d2b",
+  databaseURL: "https://thaitalk-36d2b-default-rtdb.asia-southeast1.firebasedatabase.app/",
   storageBucket: "thaitalk-36d2b.firebasestorage.app",
   messagingSenderId: "76341039534",
   appId: "1:76341039534:web:2b031bbfcaf377cb86f83f",
