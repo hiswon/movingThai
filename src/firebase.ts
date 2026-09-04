@@ -6,7 +6,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyABsS0eblW6rBz5nveIVp7hAs3q61XMjlA",
   authDomain: "thaitalk-36d2b.firebaseapp.com",
   projectId: "thaitalk-36d2b",
-  databaseURL: "https://thaitalk-36d2b-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  databaseURL: "https://thaitalk-36d2b-default-rtdb.asia-southeast1.firebasedatabase.app",
   storageBucket: "thaitalk-36d2b.firebasestorage.app",
   messagingSenderId: "76341039534",
   appId: "1:76341039534:web:2b031bbfcaf377cb86f83f",
@@ -14,4 +14,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const db = getDatabase(app);
+
+// ⚠️ URL을 직접 지정해 넘겨줍니다.
+export const db = getDatabase(app, firebaseConfig.databaseURL);
