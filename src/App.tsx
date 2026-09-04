@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import './App.css';
 
-// Firebase Database 함수 임포트
+// Firebase Database
 import { db } from './firebase';
 import { ref, onValue, push, update, remove } from 'firebase/database';
 
-// assets 이미지 불러오기
+// assets 이미지
 import pic1 from './assets/pic1.jpg';
 import pic2 from './assets/pic2.jpg';
 import pic3 from './assets/pic3.jpg';
@@ -54,7 +54,6 @@ interface KoreanStudyItem {
   enMeaning: string;
 }
 
-// 커뮤니티 댓글 및 게시글 타입 정의
 interface CommentItem {
   id: string;
   author: string;
@@ -71,7 +70,6 @@ interface PostItem {
   comments?: Record<string, CommentItem>;
 }
 
-// 40개의 한국어 학습 데이터베이스
 const koreanStudyDatabase: KoreanStudyItem[] = [
   { id: 1, kr: "안녕하세요", thPron: "อัน-นย็อง-ฮา-เซ-โย", thMeaning: "สวัสดี", enMeaning: "Hello" },
   { id: 2, kr: "감사합니다", thPron: "คัม-ซา-ฮัม-นิ-ดา", thMeaning: "ขอบคุณครับ/ค่ะ", enMeaning: "Thank you" },
@@ -115,7 +113,6 @@ const koreanStudyDatabase: KoreanStudyItem[] = [
   { id: 40, kr: "행복하세요", thPron: "แฮง-บก-ฮา-เซ-โย", thMeaning: "ขอให้มีความสุข", enMeaning: "Be happy" }
 ];
 
-// 8단계 복음 노선도 역(Station) 데이터
 const gospelRoute: GospelStation[] = [
   {
     id: 1,
@@ -210,7 +207,7 @@ const gospelRoute: GospelStation[] = [
 const bibleVerses: BibleVerse[] = [
   { th: "เพราะว่าพระเจ้าทรงรักโลกจนได้ทรงประทานพระบุตรองค์เดียวของพระองค์", kr: "하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니", refTh: "(ยอห์น 3:16)", refKr: "(요 3:16)" },
   { th: "พระยาห์เวห์ทรงเป็นผู้เลี้ยงดูข้าพเจ้า ข้าพเจ้าจะไม่ขัดสน", kr: "여호와는 나의 목자시니 내게 부족함이 없으리로다", refTh: "(สดุดี 23:1)", refKr: "(시 23:1)" },
-  { th: "บรรดาผู้เหน็ดเหนื่อยและแบกภาระหนัก จงมาหาเรา และเราจะให้ท่านทั้งหลายหายเหนื่อยเป็นสุข", kr: "수고하고 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라", refTh: "(แมทธิว 11:28)", refKr: "(마 11:28)" },
+  { th: "บรรดาผู้เหน็ดเหนื่อยและแบกภาระหนัก จงมาหาเรา และเราจะให้ท่านทั้งหลายหายเหนื่อยเป็นสุข", kr: "수고하고 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라", refTh: "(แมทธิว 11:28)", refKr: "(มธ 11:28)" },
   { th: "จงวางใจในพระยาห์เวห์ด้วยสุดใจของเจ้า และอย่าพึ่งพาความเข้าใจของตนเอง", kr: "너는 마음을 다하여 여호와를 신뢰하고 네 명철을 의지하지 말라", refTh: "(สุภาษิต 3:5)", refKr: "(잠 3:5)" },
   { th: "จงยอมรับพระองค์ในทุกทางของเจ้า แล้วพระองค์จะทรงชี้ทางเดินของเจ้าให้ตรง", kr: "너는 범사에 그를 인정하라 그리하면 네 길을 지도하시รี라", refTh: "(สุภาษิต 3:6)", refKr: "(잠 3:6)" },
   { th: "อย่ากลัวเลย เพราะเราอยู่กับเจ้า อย่าหวาดหวั่น เพราะเราเป็นพระเจ้าของเจ้า เราจะเสริมกำลังเจ้า เราจะช่วยเจ้า", kr: "두려워하지 말라 내가 너와 함께 함이라 놀라지 말라 나는 네 하나님이 됨이라 내가 너를 굳세게 하리라 참으로 너를 도와 주리라", refTh: "(อิสยาห์ 41:10)", refKr: "(사 41:10)" },
@@ -218,13 +215,13 @@ const bibleVerses: BibleVerse[] = [
   { th: "และพระเจ้าของข้าพเจ้าจะทรงจัดหาทุกสิ่งที่จำเป็นให้แก่ท่านทั้งหลายจากความมั่งคั่งอันทรงเกียรติในพระเยซูคริสต์", kr: "나의 하나님이 그리스도 예수 안에서 영광 가운데 그 풍성한 대로 너희 모든 쓸 것을 채우시리라", refTh: "(ฟีลิปปี 4:19)", refKr: "(빌 4:19)" },
   { th: "อย่าวิตกกังวลในสิ่งใดๆ เลย แต่จงทูลขอทุกสิ่งต่อพระเจ้าด้วยการอธิษฐานและการวิงวอน พร้อมกับการขอบพระคุณ", kr: "아무 것도 염려하지 말고 다만 모든 일에 기도와 간구로, 너희 구할 것을 감사함으로 하나님께 아뢰라", refTh: "(ฟีลิปปี 4:6)", refKr: "(빌 4:6)" },
   { th: "แล้วสันติสุขของพระเจ้าที่เกินความเข้าใจจะคุ้มครองจิตใจและความคิดของท่านไว้ในพระเยซูคริสต์", kr: "그리하면 모든 지각에 뛰어난 하나님의 평강이 그리스도 예수 안에서 너희 마음과 생각을 지키시리라", refTh: "(ฟีลิปปี 4:7)", refKr: "(빌 4:7)" },
-  { th: "ถ้าอย่างนั้น เราจะว่าอย่างไรเกี่ยวกับสิ่งเหล่านี้? ถ้าพระเจ้าทรงอยู่ฝ่ายเรา ใครจะขัดขวางเราได้?", kr: "그런즉 이 일에 대하여 우리가 무슨 말 하리요 만일 하나님이 우리를 위하시면 누가 우리를 대적하리요", refTh: "(โรม 8:31)", refKr: "(롬 8:31)" },
+  { th: "ถ้าอย่างนั้น เราจะว่าอย่างไรเกี่ยวกับสิ่งเหล่านี้? ถ้าพระเจ้าทรงอยู่ฝ่ายเรา ใครจะขัดขวางเราได้?", kr: "그런즉 이 일에 대하여 우리가 무슨 말 하리요 만일 하나님이 우리를 위하시면 누가 우리를 대적하리요", refTh: "(โรม 8:31)", refKr: "(รม 8:31)" },
   { th: "เหตุฉะนั้น ถ้าใครอยู่ในพระคริสต์ เขาก็เป็นคนที่ถูกสร้างใหม่แล้ว สิ่งสารพัดที่เก่าๆ ก็ล่วงไป นี่ยังไงล่ะ สิ่งใหม่ก็เกิดขึ้นมาแล้ว", kr: "그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새 것이 되었도다", refTh: "(2 โครินธ์ 5:17)", refKr: "(고후 5:17)" },
   { th: "เพราะว่าท่านทั้งหลายได้รับความรอดโดยนึกถึงพระคุณผ่านทางความเชื่อ และสิ่งนี้ไม่ได้มาจากตัวท่านเอง แต่เป็นของประทานจากพระเจ้า", kr: "너희는 그 은혜에 의하여 믿음으로 말미암아 구원을 받았으니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라", refTh: "(เอเฟซัส 2:8)", refKr: "(엡 2:8)" },
   { th: "พระวจนะของพระองค์เป็นตะเกียงแก่เท้าของข้าพระองค์ และเป็นแสงสว่างแก่ทางของข้าพระองค์", kr: "주의 말씀은 내 발에 등요 내 길에 빛이니이다", refTh: "(สดุดี 119:105)", refKr: "(시 119:105)" },
-  { th: "จงแสวงหาแผ่นดินของพระเจ้าและความชอบธรรมของพระองค์ก่อน แล้วพระองค์จะทรงเพิ่มเติมสิ่งทั้งปวงนี้ให้", kr: "그런즉 너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라", refTh: "(แมทธิว 6:33)", refKr: "(마 6:33)" },
-  { th: "เรามอบสันติสุขไว้กับพวกท่าน สันติสุขของเราที่ให้แก่ท่านนั้น เราไม่ได้ให้อย่างที่โลกให้ อย่าให้ใจของท่านวิตกกังวลและอย่ากลัวเลย", kr: "평안을 너희에게 미치노니 곧 나의 평안을 너희에게 주노라 내가 너희에게 주는 것은 세상이 주는 것과 같지 아니하니라 너희는 마음에 근심하지도 말고 두려워하지도 말라", refTh: "(ยอห์น 14:27)", refKr: "(요 14:27)" },
-  { th: "เราเป็นทางนั้น เป็นความจริง และเป็นชีวิต ไม่มีใครมาถึงพระบิดาได้เว้นแต่มาทางเรา", kr: "내가 곧 길요 진리요 생명이니 나로 말미암지 않고는 아버지께로 올 자가 없느니라", refTh: "(ยอห์น 14:6)", refKr: "(요 14:6)" },
+  { th: "จงแสวงหาแผ่นดินของพระเจ้าและความชอบธรรมของพระองค์ก่อน แล้วพระองค์จะทรงเพิ่มเติมสิ่งทั้งปวงนี้ให้", kr: "그런즉 너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라", refTh: "(แมทธิว 6:33)", refKr: "(มธ 6:33)" },
+  { th: "เรามอบสันติสุขไว้กับพวกท่าน สันติสุขของเราที่ให้แก่ท่านนั้น เราไม่ได้ให้อย่างที่โลกให้ อย่าให้ใจของท่านวิตกกังวลและอย่ากลัวเลย", kr: "평안을 너희에게 미치โน니 곧 나의 평안을 너희에게 주โน라 내가 너희에게 주는 것은 세상이 주는 것과 같지 아니하니라 너희는 마음에 근심하지도 말고 두려워하지도 말라", refTh: "(ยอห์น 14:27)", refKr: "(ยฮ 14:27)" },
+  { th: "เราเป็นทางนั้น เป็นความจริง และเป็นชีวิต ไม่มีใครมาถึงพระบิดาได้เว้นแต่มาทางเรา", kr: "내가 곧 길요 진리요 생명이니 나로 말미암지 않고는 아버지께로 올 자가 없느니라", refTh: "(ยอห์น 14:6)", refKr: "(ยฮ 14:6)" },
   { th: "ความรักนั้นก็อดทนนานและแสดงความปรานี ความรักไม่อิจฉา ไม่อวดตัว ไม่จองหอง", kr: "사랑은 오래 참고 사랑은 온유하며 시기하지 아니하며 사랑은 자랑하지 아니하며 교만하지 아니하며", refTh: "(1 โครินธ์ 13:4)", refKr: "(고전 13:4)" },
   { th: "ดังนั้นยังคงอยู่สามสิ่งนี้ คือความเชื่อ ความหวัง และความรัก แต่ความรักใหญ่ที่สุด", kr: "그런즉 믿음, 소망, 사랑, 이 세 가지는 항상 있을 것인데 그 중의 제일은 사랑이라", refTh: "(고린ธ์ 13:13)", refKr: "(고전 13:13)" },
   { th: "พระยาห์เวห์ทรงเป็นกำลังและเป็นโล่ของข้าพเจ้า จิตใจของข้าพเจ้าวางใจในพระองค์ ข้าพเจ้าจึงได้รับการช่วยกู้", kr: "여호와는 나의 힘과 나의 방패이시니 내 마음이 그를 의지하여 도움을 얻었도다", refTh: "(สดุดี 28:7)", refKr: "(시 28:7)" },
@@ -239,12 +236,11 @@ const bibleVerses: BibleVerse[] = [
   { th: "พระองค์ทรงรักษาคนใจแตกสลาย และทรงพันผูกบาดแผลของเขา", kr: "상심한 자들을 고치시며 그들의 상처를 싸매시는도다", refTh: "(สดุดี 147:3)", refKr: "(시 147:3)" },
   { th: "จงเมตตาต่อกัน จงมีใจปรานี และจงอภัยโทษให้กันเหมือนอย่างที่พระเจ้าทรงอภัยโทษให้พวกท่านในพระคริสต์", kr: "서로 친절하게 하며 불쌍히 여기며 서로 용서하기를 하나님이 그리스도 안에서 너희를 용서하심과 같이 하라", refTh: "(เอเฟซัส 4:32)", refKr: "(엡 4:32)" },
   { th: "จงถอดความวิตกกังวลทั้งสิ้นของท่านออกไปให้พระองค์ เพราะพระองค์ทรงห่วงใยท่านทั้งหลาย", kr: "너희 염려를 다 주께 맡기라 이는 그가 너희를 돌보심이라", refTh: "(1 ปีเตอร์ 5:7)", refKr: "(벧전 5:7)" },
-  { th: "เราเป็นเถาองุ่น พวกท่านเป็นกิ่ง ผู้ที่สมรสอยู่กับเราและเราอยู่ในเขา คนนั้นจะออกผลมาก เพราะถ้าแยกจากเราแล้วพวกท่านจะทำสิ่งใดไม่ได้เลย", kr: "나는 포도나무요 너희는 가지라 그가 내 안에, 내가 그 안에 거하면 사람이 열매를 많이 맺나니 나를 떠나서는 너희가 아무 것도 할 수 없음이라", refTh: "(ยอห์น 15:5)", refKr: "(요 15:5)" },
-  { th: "จงขอแล้วจะได้ จงแสวงหาแล้วจะพบ จงเคาะแล้วจะเปิดให้แก่ท่าน", kr: "구하라 그리하면 너희에게 주실 것이요 찾으라 그리하면 찾아낼 것이요 문을 두드리라 그리하면 너희에게 열릴 것이니", refTh: "(แมทธิว 7:7)", refKr: "(มธ 7:7)" },
+  { th: "เราเป็นเถาองุ่น พวกท่านเป็นกิ่ง ผู้ที่สมรสอยู่กับเราและเราอยู่ในเขา คนนั้นจะออกผลมาก เพราะถ้าแยกจากเราแล้วพวกท่านจะทำสิ่งใดไม่ได้เลย", kr: "나는 포도나무요 너희는 가지라 그가 내 안에, 내가 그 안에 거하면 사람이 열매를 많이 맺나니 나를 떠나서는 너희가 아무 것도 할 수 없음이라", refTh: "(ยอห์น 15:5)", refKr: "(ยฮ 15:5)" },
+  { th: "จงขอแล้วจะได้ จงแสวงหาแล้วจะพบ จงเคาะแล้วจะเปิดให้แก่ท่าน", kr: "구하라 그리하면 너희에게 주실 것이요 찾으รา 그리하면 찾아낼 것이요 문을 두드리라 그리하면 너희에게 열릴 것이니", refTh: "(แมทธิว 7:7)", refKr: "(มธ 7:7)" },
   { th: "ความรักมั่นคงของพระยาห์เวห์ไม่เคยหยุดยั้ง พระกรุณาของพระองค์ไม่เคยสิ้นสุด เป็นของใหม่อยู่ทุกเช้า ความซื่อสัตย์ของพระองค์ใหญ่ยิ่งนัก", kr: "여호와의 인자와 성실이 무궁하시므로 우리가 진멸되지 아니함이니이다 이것들이 아침마다 새로우니 주의 성실하심이 크시도소이다", refTh: "(เพลงคร่ำครวญ 3:22-23)", refKr: "(애 3:22-23)" }
 ];
 
-// 울산 태국 노동자를 위한 필수 웹사이트 10선 데이터
 const usefulLinks: UsefulLink[] = [
   {
     nameTh: "ระบบ HiKorea (ไฮโคเรีย)",
@@ -351,6 +347,10 @@ export const App: React.FC = () => {
   const [newContent, setNewContent] = useState<string>('');
   const [commentInputs, setCommentInputs] = useState<{ [postId: string]: { author: string; content: string } }>({});
 
+  // 관리자 삭제 모달 State
+  const [deleteTarget, setDeleteTarget] = useState<{ postId: string; commentId?: string } | null>(null);
+  const [adminPasswordInput, setAdminPasswordInput] = useState<string>('');
+
   const getRandomStudyItems = () => {
     const shuffled = [...koreanStudyDatabase].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, 7);
@@ -368,8 +368,8 @@ export const App: React.FC = () => {
       const data = snapshot.val();
       if (data) {
         const loadedPosts: PostItem[] = Object.keys(data).map(key => ({
-          id: key,
-          ...data[key]
+          ...data[key],
+          id: key
         }));
         setPosts(loadedPosts.reverse()); // 최신글 상단 정렬
       } else {
@@ -467,16 +467,19 @@ export const App: React.FC = () => {
       content: newContent,
       likes: 0,
       createdAt: new Date().toLocaleDateString('ko-KR')
+    }).then(() => {
+      setNewAuthor('');
+      setNewContent('');
+    }).catch(err => {
+      console.error("Post save error:", err);
+      alert(isKorean ? "저장에 실패했습니다." : "บันทึกไม่สำเร็จ");
     });
-
-    setNewAuthor('');
-    setNewContent('');
   };
 
   // 좋아요 증가
   const handleLikePost = (postId: string, currentLikes: number) => {
     const postRef = ref(db, `posts/${postId}`);
-    update(postRef, { likes: currentLikes + 1 });
+    update(postRef, { likes: (currentLikes || 0) + 1 });
   };
 
   // 댓글 입력 상태 관리
@@ -501,33 +504,33 @@ export const App: React.FC = () => {
       author: input.author?.trim() || (isKorean ? '익명' : 'ผู้ตอบ'),
       content: input.content,
       createdAt: new Date().toLocaleDateString('ko-KR')
+    }).then(() => {
+      setCommentInputs(prev => ({
+        ...prev,
+        [postId]: { author: '', content: '' }
+      }));
     });
-
-    setCommentInputs(prev => ({
-      ...prev,
-      [postId]: { author: '', content: '' }
-    }));
   };
 
-  // 관리자 모드 삭제 (비밀번호: 1234)
-  const handleDeletePost = (postId: string) => {
-    const password = prompt(isKorean ? "관리자 암호를 입력하세요:" : "กรุณาใส่รหัสผ่านผู้ดูแลระบบ:");
-    if (password === '1234') {
-      const postRef = ref(db, `posts/${postId}`);
-      remove(postRef);
+  // 관리자 삭제 처리 모달 열기
+  const openDeleteModal = (postId: string, commentId?: string) => {
+    setDeleteTarget({ postId, commentId });
+    setAdminPasswordInput('');
+  };
+
+  // 모달을 통해 관리자 번호 확인 후 삭제 수행
+  const handleConfirmDelete = () => {
+    if (adminPasswordInput === '1234') {
+      if (deleteTarget?.commentId) {
+        const commentRef = ref(db, `posts/${deleteTarget.postId}/comments/${deleteTarget.commentId}`);
+        remove(commentRef);
+      } else if (deleteTarget?.postId) {
+        const postRef = ref(db, `posts/${deleteTarget.postId}`);
+        remove(postRef);
+      }
       alert(isKorean ? "삭제되었습니다." : "ลบเรียบร้อยแล้ว");
-    } else if (password !== null) {
-      alert(isKorean ? "암호가 올바르지 않습니다." : "รหัสผ่านไม่ถูกต้อง");
-    }
-  };
-
-  const handleDeleteComment = (postId: string, commentId: string) => {
-    const password = prompt(isKorean ? "관리자 암호를 입력하세요:" : "กรุณาใส่รหัสผ่านผู้ดูแลระบบ:");
-    if (password === '1234') {
-      const commentRef = ref(db, `posts/${postId}/comments/${commentId}`);
-      remove(commentRef);
-      alert(isKorean ? "댓글이 삭제되었습니다." : "ลบความคิดเห็นเรียบร้อยแล้ว");
-    } else if (password !== null) {
+      setDeleteTarget(null);
+    } else {
       alert(isKorean ? "암호가 올바르지 않습니다." : "รหัสผ่านไม่ถูกต้อง");
     }
   };
@@ -856,7 +859,7 @@ export const App: React.FC = () => {
                           <span className="post-date">{post.createdAt}</span>
                           <button 
                             className="admin-delete-btn"
-                            onClick={() => handleDeletePost(post.id)}
+                            onClick={() => openDeleteModal(post.id)}
                             title={isKorean ? "관리자 삭제" : "ลบโดยผู้ดูแล"}
                           >
                             🗑️
@@ -868,10 +871,11 @@ export const App: React.FC = () => {
 
                       <div className="post-actions">
                         <button 
+                          type="button"
                           className="like-btn"
-                          onClick={() => handleLikePost(post.id, post.likes)}
+                          onClick={() => handleLikePost(post.id, post.likes || 0)}
                         >
-                          ❤️ {isKorean ? "좋아요" : "ถูกใจ"} {post.likes}
+                          ❤️ {isKorean ? "좋아요" : "ถูกใจ"} {post.likes || 0}
                         </button>
                       </div>
 
@@ -888,7 +892,7 @@ export const App: React.FC = () => {
                                 <span className="comment-date">{comment.createdAt}</span>
                                 <button 
                                   className="admin-comment-delete-btn"
-                                  onClick={() => handleDeleteComment(post.id, comment.id)}
+                                  onClick={() => openDeleteModal(post.id, comment.id)}
                                 >
                                   ✕
                                 </button>
@@ -925,6 +929,36 @@ export const App: React.FC = () => {
             </div>
           </section>
         </main>
+      )}
+
+      {/* 관리자 암호 확인 모달 팝업 */}
+      {deleteTarget && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h4>{isKorean ? "🔒 관리자 암호 확인" : "🔒 ยืนยันรหัสผ่านผู้ดูแลระบบ"}</h4>
+            <p>{isKorean ? "삭제를 진행하려면 암호를 입력하세요." : "กรุณากรอกรหัสผ่านเพื่อลบ"}</p>
+            <input 
+              type="password"
+              className="community-input"
+              style={{ width: '100%', marginBottom: '12px' }}
+              placeholder={isKorean ? "비밀번호 입력 (기본: 1234)" : "ใส่รหัสผ่าน (ค่าเริ่มต้น: 1234)"}
+              value={adminPasswordInput}
+              onChange={(e) => setAdminPasswordInput(e.target.value)}
+            />
+            <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+              <button className="comment-submit-btn" onClick={handleConfirmDelete}>
+                {isKorean ? "확인" : "ตกลง"}
+              </button>
+              <button 
+                className="comment-submit-btn" 
+                style={{ backgroundColor: '#718096' }}
+                onClick={() => setDeleteTarget(null)}
+              >
+                {isKorean ? "취소" : "ยกเลิก"}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* 하단 QR 코드 섹션 */}
