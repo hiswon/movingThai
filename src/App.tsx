@@ -50,6 +50,20 @@ interface KoreanStudyItem {
   enMeaning: string;
 }
 
+interface Comment {
+  id: number;
+  text: string;
+  createdAt: string;
+}
+
+interface Post {
+  id: number;
+  author: string;
+  content: string;
+  likes: number;
+  comments: Comment[];
+  createdAt: string;
+}
 // 40개의 한국어 학습 데이터베이스
 const koreanStudyDatabase: KoreanStudyItem[] = [
   { id: 1, kr: "안녕하세요", thPron: "อัน-นย็อง-ฮา-เซ-โย", thMeaning: "สวัสดี", enMeaning: "Hello" },
@@ -312,7 +326,43 @@ const usefulLinks: UsefulLink[] = [
 export const App: React.FC = () => {
   const [isKorean, setIsKorean] = useState<boolean>(false);
   const [todayVerse, setTodayVerse] = useState<BibleVerse | null>(null);
-  const [activeTab, setActiveTab] = useState<'home' | 'electric' | 'korean'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'electric' | 'korean' | 'board'>('home');
+
+  // 2. 게시글 목록 State (초기 샘플 데이터 제공)
+  const [posts, setPosts] = useState<Post[]>(() => {
+    const saved = localStorage.getItem('app_posts');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error("Failed to parse saved posts", e);
+      }
+    }
+    // 저장된 데이터가 없을 때 보여줄 초기 샘플 데이터
+    return [
+      {
+        id: 1,
+        author: '지킬 (Jikil)',
+        content: '안녕하세요! 모임 게시판입니다. 자유롭게 의견을 남겨주세요.',
+        likes: 3,
+        comments: [
+          { id: 101, text: '반갑습니다!', createdAt: '2026-09-05 10:00' }
+        ],
+        createdAt: '2026-09-05 09:30'
+      }
+    ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('app_posts', JSON.stringify(posts));
+  }, [posts]);
+  
+  // 3. 새 게시글 입력 State
+  const [newAuthor, setNewAuthor] = useState<string>('');
+  const [newContent, setNewContent] = useState<string>('');
+
+  // 4. 새 댓글 입력 State (게시글 id별로 관리)
+  const [newComments, setNewComments] = useState<{ [postId: number]: string }>({});
 
   const appUrl = "https://moving-thai.vercel.app/";
 
@@ -337,6 +387,8 @@ export const App: React.FC = () => {
 
     setRandomKoreanList(getRandomStudyItems());
   }, []);
+
+  
 
   const handleRefreshKoreanList = () => {
     setRandomKoreanList(getRandomStudyItems());
@@ -413,7 +465,57 @@ export const App: React.FC = () => {
   };
 
   const totalUsage = rooms.reduce((acc, r) => acc + (r.usage || 0), 0);
+//===
+// 새 포스트 등록
+  const handleAddPost = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newContent.trim()) return;
 
+    const newPostItem: Post = {
+      id: Date.now(),
+      author: newAuthor.trim() || (isKorean ? '익명' : 'ผู้ไม่ประสงค์ออกนาม'),
+      content: newContent,
+      likes: 0,
+      comments: [],
+      createdAt: new Date().toLocaleString()
+    };
+
+    setPosts([newPostItem, ...posts]);
+    setNewAuthor('');
+    setNewContent('');
+  };
+
+  // 좋아요 클릭
+  const handleLike = (postId: number) => {
+    setPosts(posts.map(p => p.id === postId ? { ...p, likes: p.likes + 1 } : p));
+  };
+
+  // 댓글 입력 변경
+  const handleCommentChange = (postId: number, text: string) => {
+    setNewComments(prev => ({ ...prev, [postId]: text }));
+  };
+
+  // 댓글 등록
+  const handleAddComment = (postId: number) => {
+    const commentText = newComments[postId];
+    if (!commentText || !commentText.trim()) return;
+
+    const newCommentItem: Comment = {
+      id: Date.now(),
+      text: commentText.trim(),
+      createdAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    setPosts(posts.map(p => {
+      if (p.id === postId) {
+        return { ...p, comments: [...p.comments, newCommentItem] };
+      }
+      return p;
+    }));
+
+    setNewComments(prev => ({ ...prev, [postId]: '' }));
+  };
+  //===
   return (
     <div className="app-container">
       {/* 상단 내비게이션 */}
@@ -445,6 +547,14 @@ export const App: React.FC = () => {
           onClick={() => setActiveTab('korean')}
         >
           {isKorean ? "📖 한국어 배우기" : "📖 เรียนภาษาเกาหลี"}
+        </button>
+
+        {/* 🔥 새로 추가된 게시판 버튼 */}
+        <button 
+          className={`nav-btn ${activeTab === 'board' ? 'active' : ''}`}
+          onClick={() => setActiveTab('board')}
+        >
+          {isKorean ? "💬 나눔 게시판" : "💬 กระดานสนทนา"}
         </button>
       </nav>
 
@@ -675,6 +785,87 @@ export const App: React.FC = () => {
                   <p>คำอ่าน (발음): {item.thPron}</p>
                   <p>ความหมาย (ความหมาย): {item.thMeaning}</p>
                   <span style={{ fontSize: '0.75rem', color: '#888' }}>({item.enMeaning})</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        </main>
+      )}
+
+      {/* 탭 4: 나눔 게시판 페이지 */}
+      {activeTab === 'board' && (
+        <main className="main-content">
+          <section className="page-card">
+            <h3>{isKorean ? "💬 나눔 게시판" : "💬 กระดานสนทนา"}</h3>
+            <p className="page-desc">
+              {isKorean 
+                ? "자유롭게 글을 남기고 소통해 보세요." 
+                : "พูดคุยและแบ่งปันความคิดเห็นได้อย่างอิสระ"}
+            </p>
+
+            {/* 포스트 작성 폼 */}
+            <form onSubmit={handleAddPost} className="post-form">
+              <input 
+                type="text" 
+                placeholder={isKorean ? "이름 (선택)" : "ชื่อ (ไม่บังคับ)"}
+                value={newAuthor}
+                onChange={(e) => setNewAuthor(e.target.value)}
+                className="post-author-input"
+              />
+              <textarea 
+                placeholder={isKorean ? "내용을 입력하세요..." : "เขียนข้อความ..."}
+                value={newContent}
+                onChange={(e) => setNewContent(e.target.value)}
+                className="post-content-input"
+                rows={3}
+              />
+              <button type="submit" className="post-submit-btn">
+                {isKorean ? "글 등록" : "โพสต์"}
+              </button>
+            </form>
+
+            {/* 포스트 목록 */}
+            <div className="post-list">
+              {posts.map((post) => (
+                <div key={post.id} className="post-item-card">
+                  <div className="post-header">
+                    <span className="post-author">{post.author}</span>
+                    <span className="post-date">{post.createdAt}</span>
+                  </div>
+                  <p className="post-content-body">{post.content}</p>
+
+                  {/* 좋아요 버튼 및 카운트 */}
+                  <div className="post-actions">
+                    <button className="like-btn" onClick={() => handleLike(post.id)}>
+                      ❤️ {isKorean ? "좋아요" : "ถูกใจ"} {post.likes}
+                    </button>
+                  </div>
+
+                  {/* 댓글 목록 */}
+                  <div className="comments-section">
+                    <div className="comments-list">
+                      {post.comments.map((comment) => (
+                        <div key={comment.id} className="comment-item">
+                          <span className="comment-text">{comment.text}</span>
+                          <span className="comment-date">{comment.createdAt}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* 댓글 입력 폼 */}
+                    <div className="comment-input-group">
+                      <input 
+                        type="text" 
+                        placeholder={isKorean ? "댓글 작성..." : "เขียนความคิดเห็น..."}
+                        value={newComments[post.id] || ''}
+                        onChange={(e) => handleCommentChange(post.id, e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleAddComment(post.id)}
+                      />
+                      <button onClick={() => handleAddComment(post.id)}>
+                        {isKorean ? "등록" : "ส่ง"}
+                      </button>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

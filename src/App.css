@@ -786,3 +786,161 @@ body {
   font-size: 0.8rem;
   color: var(--text-sub);
 }
+
+/* 게시판 스타일 */
+.post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f7fafc;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+}
+
+.post-author-input, .post-content-input {
+  padding: 10px 12px;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.post-author-input:focus, .post-content-input:focus {
+  border-color: var(--primary-color);
+}
+
+.post-submit-btn {
+  align-self: flex-end;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.post-submit-btn:hover {
+  background: #e0684b;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.post-item-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.post-author {
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.post-date {
+  font-size: 0.8rem;
+  color: #a0aec0;
+}
+
+.post-content-body {
+  font-size: 0.98rem;
+  color: #4a5568;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.like-btn {
+  background: #fff5f2;
+  border: 1px solid #ffe3dc;
+  color: var(--primary-color);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.like-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.comments-section {
+  border-top: 1px solid #edf2f7;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.comment-item {
+  display: flex;
+  justify-content: space-between;
+  background: #f7fafc;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+}
+
+.comment-text {
+  color: #4a5568;
+}
+
+.comment-date {
+  font-size: 0.75rem;
+  color: #a0aec0;
+}
+
+.comment-input-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.comment-input-group input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.comment-input-group button {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+}
