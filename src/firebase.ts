@@ -3,13 +3,13 @@ import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD85xjsi1kOwrkTg0_trsMbR4kKEbLiYtQ",
-  authDomain: "thaigl-87d0d.firebaseapp.com",
-  projectId: "thaigl-87d0d",
-  storageBucket: "thaigl-87d0d.firebasestorage.app",
-  messagingSenderId: "427244341724",
-  appId: "1:427244341724:web:09db1da79ebcd6bb8ea719",
-  measurementId: "G-WE4ZWY3ZV6"
+  apiKey: "AIzaSyABsS0eblW6rBz5nveIVp7hAs3q61XMjlA",
+  authDomain: "thaitalk-36d2b.firebaseapp.com",
+  projectId: "thaitalk-36d2b",
+  storageBucket: "thaitalk-36d2b.firebasestorage.app",
+  messagingSenderId: "76341039534",
+  appId: "1:76341039534:web:2b031bbfcaf377cb86f83f",
+  measurementId: "G-XCRD1491PG"
 };
 
 const app = initializeApp(firebaseConfig);
