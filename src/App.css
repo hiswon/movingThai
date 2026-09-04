@@ -787,7 +787,7 @@ body {
   color: var(--text-sub);
 }
 
-/* 게시판 스타일 */
+/* 커뮤니티 전용 스타일 */
 .post-form {
   display: flex;
   flex-direction: column;
@@ -799,32 +799,30 @@ body {
   margin-bottom: 24px;
 }
 
-.post-author-input, .post-content-input {
-  padding: 10px 12px;
+.community-input {
+  padding: 10px 14px;
   border: 1px solid #cbd5e0;
   border-radius: 8px;
   font-size: 0.95rem;
   outline: none;
 }
 
-.post-author-input:focus, .post-content-input:focus {
+.community-textarea {
+  padding: 10px 14px;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  min-height: 80px;
+  resize: vertical;
+  outline: none;
+}
+
+.community-input:focus, .community-textarea:focus {
   border-color: var(--primary-color);
 }
 
 .post-submit-btn {
   align-self: flex-end;
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.post-submit-btn:hover {
-  background: #e0684b;
 }
 
 .post-list {
@@ -833,33 +831,58 @@ body {
   gap: 16px;
 }
 
-.post-item-card {
+.no-posts {
+  text-align: center;
+  color: var(--text-sub);
+  padding: 20px 0;
+}
+
+.post-card {
   background: white;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+  padding: 18px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
 }
 
 .post-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .post-author {
-  font-weight: bold;
-  color: #2d3748;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.post-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .post-date {
   font-size: 0.8rem;
-  color: #a0aec0;
+  color: var(--text-sub);
 }
 
-.post-content-body {
-  font-size: 0.98rem;
-  color: #4a5568;
+.admin-delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.admin-delete-btn:hover {
+  opacity: 1;
+}
+
+.post-body {
+  font-size: 0.95rem;
+  color: var(--text-main);
   line-height: 1.5;
   margin-bottom: 12px;
   white-space: pre-wrap;
@@ -867,8 +890,8 @@ body {
 
 .post-actions {
   display: flex;
-  align-items: center;
-  margin-bottom: 12px;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
 .like-btn {
@@ -877,10 +900,10 @@ body {
   color: var(--primary-color);
   padding: 6px 12px;
   border-radius: 16px;
-  font-size: 0.85rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
 }
 
 .like-btn:hover {
@@ -888,31 +911,38 @@ body {
   color: white;
 }
 
+/* 댓글 스타일 */
 .comments-section {
+  background: #f7fafc;
+  padding: 12px;
+  border-radius: 8px;
   border-top: 1px solid #edf2f7;
-  padding-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 }
 
 .comments-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 .comment-item {
   display: flex;
   justify-content: space-between;
-  background: #f7fafc;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 0.88rem;
+  align-items: center;
+  font-size: 0.85rem;
+  padding: 4px 0;
+  border-bottom: 1px dashed #e2e8f0;
 }
 
-.comment-text {
-  color: #4a5568;
+.comment-content-wrapper {
+  color: var(--text-main);
+}
+
+.comment-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .comment-date {
@@ -920,27 +950,43 @@ body {
   color: #a0aec0;
 }
 
-.comment-input-group {
-  display: flex;
-  gap: 8px;
-  margin-top: 6px;
+.admin-comment-delete-btn {
+  background: none;
+  border: none;
+  color: #e53e3e;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8rem;
 }
 
-.comment-input-group input {
-  flex: 1;
-  padding: 8px 10px;
-  border: 1px solid #e2e8f0;
+.comment-form {
+  display: flex;
+  gap: 6px;
+}
+
+.comment-author-input {
+  width: 70px;
+  padding: 6px 8px;
+  border: 1px solid #cbd5e0;
   border-radius: 6px;
   font-size: 0.85rem;
 }
 
-.comment-input-group button {
+.comment-content-input {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.comment-submit-btn {
   background: var(--accent-color);
   color: white;
   border: none;
-  padding: 8px 12px;
+  padding: 6px 12px;
   border-radius: 6px;
   font-size: 0.85rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
 }
