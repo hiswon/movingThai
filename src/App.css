@@ -1070,57 +1070,154 @@ body {
 }
 
 /* ==========================================
-   모바일 우측 짤림/쏠림 수정 (기존 CSS 맨 밑에 추가)
+   기본 스타일 및 리셋
    ========================================== */
-
-/* 1. 모든 요소가 화면 폭을 초과하지 않도록 계산 규칙 강제 */
-*, *::before, *::after {
-  box-sizing: border-box !important;
+* {
+  box-sizing: border-box; /* 패딩과 테두리가 너비에 포함되도록 설정 */
+  margin: 0;
+  padding: 0;
 }
 
-/* 2. 비밀번호 입력 영역 및 확인창 컨테이너 화면 넘침 방지 */
-.form-group,
-.password-group,
-.delete-confirm-group,
-div[class*="password"],
-div[class*="delete"] {
-  max-width: 100% !important;
-  box-sizing: border-box !important;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+  color: #333;
+  padding: 16px;
+  background-color: #f8f9fa;
 }
 
-/* 3. 비밀번호 및 삭제 암호 입력 필드 너비 조정 */
-input[type="password"],
+/* ==========================================
+   폼 및 폼 그룹 레이아웃
+   ========================================== */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-wrap: wrap; /* 요소가 넘칠 경우 다음 줄로 넘어가도록 설정 */
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.form-group label {
+  min-width: 120px;
+  font-weight: 600;
+  color: #495057;
+}
+
+/* 입력 필드 기본 설정 */
+.form-control,
 input[type="text"],
+input[type="password"] {
+  flex: 1;
+  min-width: 0; /* flex 자식 요소의 짤림 방지 */
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #fff;
+  transition: border-color 0.15s ease-in-out;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #4d90fe;
+  box-shadow: 0 0 0 3px rgba(77, 144, 254, 0.2);
+}
+
+/* ==========================================
+   비밀번호 및 삭제 확인창 전용 스타일
+   ========================================== */
+.password-group,
+.delete-confirm-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  align-items: center;
+}
+
+/* 삭제 암호 입력 필드 세부 조정 */
 .password-input,
 .delete-password-input {
-  max-width: 100% !important;
-  min-width: 0 !important; /* flex 자식 요소의 우측 짤림 방지 */
-  box-sizing: border-box !important;
+  flex: 1;
+  min-width: 150px;
+  max-width: 100%;
 }
 
-/* 4. 모바일 화면(768px 이하) 대응 */
+/* 버튼 스타일 */
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap; /* 버튼 텍스트 줄바꿈 방지 */
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+/* ==========================================
+   모바일 반응형 레이아웃 (@media)
+   ========================================== */
 @media (max-width: 768px) {
-  /* 비밀번호 관련 입력창과 버튼을 세로 정렬로 변경 */
-  .form-group,
-  .password-group,
-  .delete-confirm-group,
-  div[class*="password"],
-  div[class*="delete"] {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    width: 100% !important;
+  body {
+    padding: 12px;
   }
 
-  /* 입력창 및 버튼 너비 100%로 꽉 채우기 */
-  input[type="password"],
-  input[type="text"],
+  /* 폼 라벨과 입력창을 세로 배열로 변경 */
+  .form-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .form-group label {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* 비밀번호 입력 영역 및 확인창 풀사이즈 대응 */
+  .password-group,
+  .delete-confirm-group {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
   .password-input,
   .delete-password-input,
-  button,
-  .btn {
+  .form-control,
+  input[type="text"],
+  input[type="password"] {
     width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  /* 모바일 환경에서 버튼 풀사이즈 처리 */
+  .btn {
+    width: 100%;
+    text-align: center;
   }
 }
