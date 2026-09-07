@@ -731,7 +731,7 @@ export const App: React.FC = () => {
                         className="room-usage-input"
                         value={room.usage || ''}
                         onChange={(e) => handleRoomUsageChange(room.id, Number(e.target.value))}
-                        placeholder={isKorean ? "사용량(kWh)" : "หน่วยที่ใช้(kWh)"}
+                        placeholder={isKorean ? "사용량" : "หน่วยที่ใช้"}
                       />
                       <span className="unit-text">kWh</span>
                     </div>
