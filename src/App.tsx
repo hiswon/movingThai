@@ -244,7 +244,7 @@ const bibleVerses: BibleVerse[] = [
 const usefulLinks: UsefulLink[] = [
   {
     nameTh: "ระบบ HiKorea (ไฮโคเรีย)",
-    nameKr: "하이코เรีย (출입국 민원)",
+    nameKr: "하이코리아 (출입국 민원)",
     descTh: "จองคิว จองเวลา และต่ออายุวีซ่า/เปลี่ยนที่อยู่",
     descKr: "비자 연장, 주소지 변경, 출입국 방문 예약",
     url: "https://www.hikorea.go.kr",
