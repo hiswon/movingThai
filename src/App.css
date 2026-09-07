@@ -1221,3 +1221,59 @@ input[type="password"]:focus {
     text-align: center;
   }
 }
+
+/* ==========================================
+   이름/암호 1줄 배치, 댓글 입력창 아래 줄 배치
+   ========================================== */
+
+/* 이름과 암호 입력창을 감싸는 그룹 (가로 배치) */
+.author-password-group,
+.comment-form-top,
+div[class*="author"],
+div[class*="writer"] {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  width: 100% !important;
+  margin-bottom: 8px !important;
+}
+
+/* 이름과 암호 입력 필드 개별 설정 (반씩 나눠 가로 배치) */
+.author-password-group input,
+.comment-form-top input,
+input[name*="name"],
+input[name*="writer"],
+input[name*="password"],
+input[name*="pass"] {
+  flex: 1 1 calc(50% - 4px) !important;
+  min-width: 120px !important;
+  box-sizing: border-box !important;
+}
+
+/* 댓글 입력창 (다음 줄 전체 너비 배치) */
+.comment-textarea,
+.comment-form textarea,
+textarea[name*="comment"],
+textarea[name*="content"],
+textarea {
+  display: block !important;
+  width: 100% !important;
+  clear: both !important;
+  margin-top: 8px !important;
+  box-sizing: border-box !important;
+}
+
+/* 모바일 화면 대응 */
+@media (max-width: 480px) {
+  /* 화면이 매우 좁은 모바일에서는 이름과 암호도 한 줄씩 세로 정렬 */
+  .author-password-group input,
+  .comment-form-top input,
+  input[name*="name"],
+  input[name*="writer"],
+  input[name*="password"],
+  input[name*="pass"] {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+  }
+}
