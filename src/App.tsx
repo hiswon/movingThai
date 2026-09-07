@@ -520,7 +520,7 @@ export const App: React.FC = () => {
 
   // 모달을 통해 관리자 번호 확인 후 삭제 수행
   const handleConfirmDelete = () => {
-    if (adminPasswordInput === '1234') {
+    if (adminPasswordInput === '1009') {
       if (deleteTarget?.commentId) {
         const commentRef = ref(db, `posts/${deleteTarget.postId}/comments/${deleteTarget.commentId}`);
         remove(commentRef);
@@ -941,7 +941,7 @@ export const App: React.FC = () => {
               type="password"
               className="community-input"
               style={{ width: '100%', marginBottom: '12px' }}
-              placeholder={isKorean ? "비밀번호 입력" : "ใส่รหัสผ่าน (ค่าเริ่มต้น: 1234)"}
+              placeholder={isKorean ? "비밀번호 입력" : "ใส่รหัสผ่าน"}
               value={adminPasswordInput}
               onChange={(e) => setAdminPasswordInput(e.target.value)}
             />

@@ -256,11 +256,6 @@ body {
     width: 30%;
   }
 
-  .comment-content-input {
-    width: 68%;
-    flex: none;
-  }
-
   .comment-submit-btn {
     width: 100%;
     margin-top: 4px;
@@ -988,7 +983,7 @@ body {
 /* 댓글 작성자 입력창 (모바일에서 너무 커지지 않도록 축소 가능) */
 .comment-content-input {
   flex: 1;
-  min-width: 0;    /* flex 자식이 부모 영역 넘어가는 현상 방지 핵심! */
+  min-width: 0;            /* flex 자식이 부모 영역 넘어가는 현상 방지 */
   padding: 6px 8px;
   border: 1px solid #cbd5e0;
   border-radius: 6px;
@@ -996,13 +991,6 @@ body {
   box-sizing: border-box;
 }
 
-.comment-content-input {
-  flex: 1;
-  padding: 6px 8px;
-  border: 1px solid #cbd5e0;
-  border-radius: 6px;
-  font-size: 0.85rem;
-}
 
 /* 댓글 제출 버튼 */
 .comment-submit-btn {
