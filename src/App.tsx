@@ -941,7 +941,7 @@ export const App: React.FC = () => {
               type="password"
               className="community-input"
               style={{ width: '100%', marginBottom: '12px' }}
-              placeholder={isKorean ? "비밀번호 입력 (기본: 1234)" : "ใส่รหัสผ่าน (ค่าเริ่มต้น: 1234)"}
+              placeholder={isKorean ? "비밀번호 입력" : "ใส่รหัสผ่าน (ค่าเริ่มต้น: 1234)"}
               value={adminPasswordInput}
               onChange={(e) => setAdminPasswordInput(e.target.value)}
             />

@@ -246,6 +246,28 @@ body {
   }
 }
 
+@media (max-width: 480px) {
+  /* 화면이 아주 작은 스마트폰의 경우 댓글 폼을 2줄로 배치 */
+  .comment-form {
+    flex-wrap: wrap;
+  }
+  
+  .comment-author-input {
+    width: 30%;
+  }
+
+  .comment-content-input {
+    width: 68%;
+    flex: none;
+  }
+
+  .comment-submit-btn {
+    width: 100%;
+    margin-top: 4px;
+    padding: 8px 0;
+  }
+}
+
 /* Links Section Style */
 .links-section {
   margin-bottom: 36px;
@@ -959,14 +981,19 @@ body {
 .comment-form {
   display: flex;
   gap: 6px;
+  width: 100%;
+  box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
 }
 
-.comment-author-input {
-  width: 70px;
+/* 댓글 작성자 입력창 (모바일에서 너무 커지지 않도록 축소 가능) */
+.comment-content-input {
+  flex: 1;
+  min-width: 0;    /* flex 자식이 부모 영역 넘어가는 현상 방지 핵심! */
   padding: 6px 8px;
   border: 1px solid #cbd5e0;
   border-radius: 6px;
   font-size: 0.85rem;
+  box-sizing: border-box;
 }
 
 .comment-content-input {
@@ -977,18 +1004,20 @@ body {
   font-size: 0.85rem;
 }
 
+/* 댓글 제출 버튼 */
 .comment-submit-btn {
+  flex-shrink: 0;  /* 버튼 모양 유지 */
   background: var(--accent-color);
   color: white;
   border: none;
-  padding: 6px 12px;
+  padding: 6px 10px;
   border-radius: 6px;
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
+  white-space: nowrap; /* 글자 줄바꿈 방지 */
 }
 
-/* 관리자 암호 확인 모달 */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -1000,15 +1029,22 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding: 16px; /* 모바일에서 화면 끝에 붙지 않도록 여백 추가 */
 }
 
 .modal-content {
   background: white;
   padding: 20px;
   border-radius: 12px;
-  width: 90%;
-  max-width: 360px;
+  width: 100%;          /* 90% 대신 100% 설정 후 max-width 제어 */
+  max-width: 340px;     /* 모바일 화면에 잘 맞게 최대 폭 조정 */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+}
+
+.modal-content input {
+  width: 100%;
+  box-sizing: border-box; /* input 창이 모달 박스 밖으로 삐져나가지 않게 처리 */
 }
 
 .modal-content h4 {
