@@ -890,6 +890,7 @@ body {
   gap: 6px;
   width: 100%;
   box-sizing: border-box;
+  flex-direction: column ;
 }
 
 .comment-author-input {
@@ -1223,57 +1224,171 @@ input[type="password"]:focus {
 }
 
 /* ==========================================
-   이름/암호 1줄 배치, 댓글 입력창 아래 줄 배치
+   1. 기본 리셋 및 전체 스타일
    ========================================== */
-
-/* 이름과 암호 입력창을 감싸는 그룹 (가로 배치) */
-.author-password-group,
-.comment-form-top,
-div[class*="author"],
-div[class*="writer"] {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: wrap !important;
-  gap: 8px !important;
-  width: 100% !important;
-  margin-bottom: 8px !important;
+*, *::before, *::after {
+  box-sizing: border-box; /* 패딩/테두리로 인한 모바일 우측 짤림 완전 방지 */
+  margin: 0;
+  padding: 0;
 }
 
-/* 이름과 암호 입력 필드 개별 설정 (반씩 나눠 가로 배치) */
-.author-password-group input,
-.comment-form-top input,
-input[name*="name"],
-input[name*="writer"],
-input[name*="password"],
-input[name*="pass"] {
-  flex: 1 1 calc(50% - 4px) !important;
-  min-width: 120px !important;
-  box-sizing: border-box !important;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+  color: #333;
+  background-color: #f8f9fa;
+  padding: 16px;
 }
 
-/* 댓글 입력창 (다음 줄 전체 너비 배치) */
-.comment-textarea,
-.comment-form textarea,
-textarea[name*="comment"],
-textarea[name*="content"],
-textarea {
-  display: block !important;
-  width: 100% !important;
-  clear: both !important;
-  margin-top: 8px !important;
-  box-sizing: border-box !important;
+/* ==========================================
+   2. 댓글 작성 폼 (2줄 레이아웃)
+   ========================================== */
+.comment-form-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* 모바일 화면 대응 */
-@media (max-width: 480px) {
-  /* 화면이 매우 좁은 모바일에서는 이름과 암호도 한 줄씩 세로 정렬 */
-  .author-password-group input,
-  .comment-form-top input,
-  input[name*="name"],
-  input[name*="writer"],
-  input[name*="password"],
-  input[name*="pass"] {
-    flex: 1 1 100% !important;
-    width: 100% !important;
+/* [1행] 이름 + 비밀번호 (가로 배치) */
+.comment-user-info {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.comment-user-info input[type="text"],
+.comment-user-info input[type="password"] {
+  flex: 1;
+  width: 50%;
+  min-width: 0; /* flex 자식 요소의 화면 넘침 방지 */
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+/* [2행] 댓글 입력창 (본문) */
+.comment-textarea-group {
+  width: 100%;
+}
+
+.comment-textarea-group textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 14px;
+  resize: vertical;
+  background-color: #fff;
+  display: block;
+}
+
+/* 입력창 포커스 효과 */
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #4d90fe;
+  box-shadow: 0 0 0 3px rgba(77, 144, 254, 0.2);
+}
+
+/* ==========================================
+   3. 댓글 목록 및 삭제 확인창 영역
+   ========================================== */
+.comment-list {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto 0;
+}
+
+/* 삭제 암호 입력창 및 버튼 컨테이너 */
+.delete-confirm-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  background-color: #f1f3f5;
+  border-radius: 6px;
+}
+
+.delete-confirm-group input[type="password"] {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+/* 버튼 공통 스타일 */
+.btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+/* ==========================================
+   4. 모바일 반응형 처리 (@media)
+   ========================================== */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  /* 1행: 이름과 암호는 모바일에서도 한 줄(50%씩) 유지 */
+  .comment-user-info {
+    flex-direction: row;
+  }
+
+  /* 삭제 확인창 영역: 모바일에서는 세로로 내려서 짤림 방지 */
+  .delete-confirm-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .delete-confirm-group input[type="password"],
+  .delete-confirm-group .btn {
+    width: 100%;
   }
 }
+
+.comment-user-info {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    width: 100%;
+  }
+
+
+  .comment-body-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    width: 100%;
+  }

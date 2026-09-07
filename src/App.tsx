@@ -929,31 +929,35 @@ export const App: React.FC = () => {
                         </div>
 
                         <form onSubmit={(e) => handleAddComment(post.id, e)} className="comment-form">
-                          <input 
-                            type="text"
-                            className="comment-author-input"
-                            placeholder={isKorean ? "이름" : "ชื่อ"}
-                            value={commentInputs[post.id]?.author || ''}
-                            onChange={(e) => handleCommentInputChange(post.id, 'author', e.target.value)}
-                          />
-                          <input 
-                            type="password"
-                            className="comment-author-input"
-                            placeholder={isKorean ? "암호" : "รหัส"}
-                            value={commentInputs[post.id]?.password || ''}
-                            onChange={(e) => handleCommentInputChange(post.id, 'password', e.target.value)}
-                          />
-                          <input 
-                            type="text"
-                            className="comment-content-input"
-                            placeholder={isKorean ? "댓글 입력..." : "เขียนความคิดเห็น..."}
-                            value={commentInputs[post.id]?.content || ''}
-                            onChange={(e) => handleCommentInputChange(post.id, 'content', e.target.value)}
-                            required
-                          />
-                          <button type="submit" className="comment-submit-btn">
-                            {isKorean ? "등록" : "ส่ง"}
-                          </button>
+                          <div className="comment-user-info">
+                            <input 
+                              type="text"
+                              className="comment-author-input"
+                              placeholder={isKorean ? "이름" : "ชื่อ"}
+                              value={commentInputs[post.id]?.author || ''}
+                              onChange={(e) => handleCommentInputChange(post.id, 'author', e.target.value)}
+                            />
+                            <input 
+                              type="password"
+                              className="comment-author-input"
+                              placeholder={isKorean ? "암호" : "รหัส"}
+                              value={commentInputs[post.id]?.password || ''}
+                              onChange={(e) => handleCommentInputChange(post.id, 'password', e.target.value)}
+                            />
+                          </div>
+                          <div className="comment-body-wrapper">
+                            <input 
+                              type="text"
+                              className="comment-content-input"
+                              placeholder={isKorean ? "댓글 입력..." : "เขียนความคิดเห็น..."}
+                              value={commentInputs[post.id]?.content || ''}
+                              onChange={(e) => handleCommentInputChange(post.id, 'content', e.target.value)}
+                              required
+                            />
+                            <button type="submit" className="comment-submit-btn">
+                              {isKorean ? "등록" : "ส่ง"}
+                            </button>
+                          </div>
                         </form>
                       </div>
                     </div>
