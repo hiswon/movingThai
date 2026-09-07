@@ -574,19 +574,19 @@ export const App: React.FC = () => {
           className={`nav-btn ${activeTab === 'electric' ? 'active' : ''}`}
           onClick={() => setActiveTab('electric')}
         >
-          {isKorean ? "⚡ 전기세 계산" : "⚡ คำนวณค่าไฟฟ้า"}
+          {isKorean ? "⚡ 전기계산" : "⚡ คำนวณค่าไฟฟ้า"}
         </button>
         <button 
           className={`nav-btn ${activeTab === 'korean' ? 'active' : ''}`}
           onClick={() => setActiveTab('korean')}
         >
-          {isKorean ? "📖 한국어 배우기" : "📖 เรียนภาษาเกาหลี"}
+          {isKorean ? "📖 한국어공부" : "📖 เรียนภาษาเกาหลี"}
         </button>
         <button 
           className={`nav-btn ${activeTab === 'community' ? 'active' : ''}`}
           onClick={() => setActiveTab('community')}
         >
-          {isKorean ? "💬 커뮤니티" : "💬 ชุมชน"}
+          {isKorean ? "💬글쓰기" : "💬 ชุมชน"}
         </button>
       </nav>
 
