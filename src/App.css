@@ -1058,3 +1058,38 @@ body {
   color: var(--text-sub);
   margin-bottom: 12px;
 }
+
+/* ----------------------------------------------------
+   관리자 암호 확인 모달 버튼 정렬 및 스타일 보완
+   ---------------------------------------------------- */
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end; /* 버튼들을 우측으로 정렬 */
+  gap: 8px;                 /* 버튼 사이 간격 */
+  margin-top: 16px;          /* 입력창과의 간격 */
+}
+
+/* 모달 내 확인/취소 버튼 공통 스타일 */
+.modal-buttons button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;      /* 글자 줄바꿈 방지 */
+}
+
+/* 확인 버튼 (강조) */
+.modal-buttons button.confirm-btn,
+.modal-buttons button:last-child {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* 취소 버튼 */
+.modal-buttons button.cancel-btn,
+.modal-buttons button:first-child:not(:last-child) {
+  background-color: #edf2f7;
+  color: var(--text-sub);
+}
