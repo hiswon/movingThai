@@ -831,8 +831,8 @@ export const App: React.FC = () => {
             <h3>{isKorean ? "💬 자유 게시판" : "💬 กระดานสนทนา"}</h3>
             <p className="page-desc">
               {isKorean 
-                ? "자유롭게 글을 남기고 교제하는 공간입니다." 
-                : "พื้นที่สำหรับแบ่งปัน พูดคุย และแลกเปลี่ยนความคิดเห็น"}
+                ? "마음속에 좋은 생각을 전달해 보세요." 
+                : "ลองถ่ายทอดความคิดดีๆ จากใจของคุณดูสิ"}
             </p>
 
             {/* 글 작성 폼 */}
@@ -842,7 +842,7 @@ export const App: React.FC = () => {
                   type="text"
                   className="community-input"
                   style={{ flex: 1 }}
-                  placeholder={isKorean ? "이름 (선택 사항)" : "ชื่อ (ไม่บังคับ)"}
+                  placeholder={isKorean ? "이름" : "ชื่อ(ไม่บังคับ)"}
                   value={newAuthor}
                   onChange={(e) => setNewAuthor(e.target.value)}
                 />
@@ -850,7 +850,7 @@ export const App: React.FC = () => {
                   type="password"
                   className="community-input"
                   style={{ flex: 1 }}
-                  placeholder={isKorean ? "비밀번호 (삭제용)" : "รหัสผ่าน (สำหรับลบ)"}
+                  placeholder={isKorean ? "비밀번호(삭제용)" : "รหัสผ่าน(สำหรับลบ)"}
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                 />
