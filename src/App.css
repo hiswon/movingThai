@@ -23,7 +23,7 @@ body {
   display: flex;
   justify-content: center;
   width: 100%;
-  overflow-x: hidden; /* 모바일 가로 스크롤 방지 */
+  overflow-x: hidden;
 }
 
 .app-container {
@@ -114,7 +114,7 @@ body {
   font-size: 0.95rem;
 }
 
-/* 오늘의 말씀 (Verse Card) */
+/* Verse Card */
 .verse-card {
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: white;
@@ -237,33 +237,6 @@ body {
   border-top: 1px solid #edf2f7;
 }
 
-/* Responsive UI */
-@media (max-width: 600px) {
-  .hero-image-wrapper {
-    flex-direction: column;
-    height: auto;
-  }
-  .sub-img {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .comment-form {
-    flex-wrap: wrap;
-  }
-  
-  .comment-author-input {
-    width: 30%;
-  }
-
-  .comment-submit-btn {
-    width: 100%;
-    margin-top: 4px;
-    padding: 8px 0;
-  }
-}
-
 /* Links Section Style */
 .links-section {
   margin-bottom: 36px;
@@ -369,7 +342,6 @@ body {
   padding-left: 20px;
 }
 
-/* 지하철 레일선 */
 .subway-line {
   position: absolute;
   left: 39px;
@@ -395,7 +367,6 @@ body {
   gap: 16px;
 }
 
-/* 역 포인트 (Node) */
 .station-node-wrapper {
   display: flex;
   justify-content: center;
@@ -433,7 +404,6 @@ body {
   color: #2b6cb0;
 }
 
-/* 역 정보 카드 */
 .station-info-card {
   background: #f7fafc;
   border-radius: 12px;
@@ -479,25 +449,6 @@ body {
   line-height: 1.4;
 }
 
-/* 모바일 반응형 */
-@media (max-width: 600px) {
-  .subway-line {
-    left: 29px;
-  }
-  .station-node-wrapper {
-    width: 24px;
-  }
-  .station-node {
-    width: 28px;
-    height: 28px;
-    border-width: 3px;
-  }
-  .node-number {
-    font-size: 0.75rem;
-  }
-}
-
-/* 노선도 카드 내부 성경 본문 인용구 스타일 */
 .station-verse-text {
   margin-top: 10px;
   padding: 10px 14px;
@@ -515,7 +466,7 @@ body {
   background: #fff5f2;
 }
 
-/* 상단 내비게이션 메뉴 버튼 */
+/* Nav Menu */
 .nav-menu {
   display: flex;
   gap: 10px;
@@ -547,7 +498,6 @@ body {
   border-color: var(--primary-color);
 }
 
-/* 추가 페이지 카드 스타일 */
 .page-card {
   background: white;
   border-radius: var(--radius);
@@ -568,46 +518,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* 전기세 계산기 스타일 */
-.calc-box {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.calc-box label {
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-.calc-box input {
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 1rem;
-  outline: none;
-}
-
-.calc-box input:focus {
-  border-color: var(--primary-color);
-}
-
-.calc-result {
-  margin-top: 16px;
-  padding: 16px;
-  background: #fff5f2;
-  border-radius: 8px;
-  border-left: 4px solid var(--primary-color);
-}
-
-.price-text {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--primary-color);
-  margin-top: 4px;
-}
-
-/* 한국어 공부 카드 스타일 */
+/* Korean Study */
 .korean-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -632,7 +543,7 @@ body {
   color: var(--text-sub);
 }
 
-/* 전기세 방별 분배 계산기 스타일 */
+/* Electric Calculator */
 .calc-container {
   display: flex;
   flex-direction: column;
@@ -802,7 +713,7 @@ body {
   color: var(--text-sub);
 }
 
-/* 커뮤니티 전용 스타일 */
+/* Community Style */
 .post-form {
   display: flex;
   flex-direction: column;
@@ -926,7 +837,7 @@ body {
   color: white;
 }
 
-/* 댓글 스타일 */
+/* Comments Style */
 .comments-section {
   background: #f7fafc;
   padding: 12px;
@@ -981,6 +892,15 @@ body {
   box-sizing: border-box;
 }
 
+.comment-author-input {
+  width: 70px;
+  padding: 6px 8px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
 .comment-content-input {
   flex: 1;
   min-width: 0;
@@ -1004,9 +924,7 @@ body {
   white-space: nowrap;
 }
 
-/* ======================================================
-   [핵심 수정] 안드로이드 모바일 완벽 대응 모달 레이아웃
-   ====================================================== */
+/* Modal Style */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -1051,7 +969,6 @@ body {
   text-align: left;
 }
 
-/* 안드로이드 자동 화면 확대(Zoom) 방지를 위해 16px 고정 */
 .modal-content input {
   width: 100% !important;
   box-sizing: border-box !important;
@@ -1066,7 +983,6 @@ body {
   border-color: var(--primary-color);
 }
 
-/* 버튼 정렬 컨테이너 - 가로 정렬 및 공간 확충 */
 .modal-buttons {
   display: flex !important;
   flex-direction: row !important;
@@ -1078,7 +994,6 @@ body {
   box-sizing: border-box !important;
 }
 
-/* 확인/취소 버튼 강제 고정 및 모바일 맞춤 크기 */
 .modal-buttons button {
   flex: 1 !important;
   min-width: 0 !important;
@@ -1098,16 +1013,58 @@ body {
   justify-content: center !important;
 }
 
-/* 확인 버튼 */
-.modal-buttons button.confirm-btn,
-.modal-buttons button:last-child {
+.modal-buttons button.confirm-btn {
   background-color: var(--primary-color) !important;
   color: #ffffff !important;
 }
 
-/* 취소 버튼 */
-.modal-buttons button.cancel-btn,
-.modal-buttons button:first-child:not(:last-child) {
+.modal-buttons button.cancel-btn {
   background-color: #edf2f7 !important;
   color: var(--text-sub) !important;
+}
+
+/* Responsive UI */
+@media (max-width: 600px) {
+  .hero-image-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+  .sub-img {
+    display: none;
+  }
+  .subway-line {
+    left: 29px;
+  }
+  .station-node-wrapper {
+    width: 24px;
+  }
+  .station-node {
+    width: 28px;
+    height: 28px;
+    border-width: 3px;
+  }
+  .node-number {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .comment-form {
+    flex-wrap: wrap;
+  }
+  
+  .comment-author-input {
+    width: calc(50% - 3px);
+  }
+
+  .comment-content-input {
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .comment-submit-btn {
+    width: 100%;
+    margin-top: 4px;
+    padding: 8px 0;
+  }
 }

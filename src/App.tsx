@@ -58,6 +58,7 @@ interface CommentItem {
   id: string;
   author: string;
   content: string;
+  password?: string;
   createdAt: string;
 }
 
@@ -65,6 +66,7 @@ interface PostItem {
   id: string;
   author: string;
   content: string;
+  password?: string;
   likes: number;
   createdAt: string;
   comments?: Record<string, CommentItem>;
@@ -344,12 +346,13 @@ export const App: React.FC = () => {
   // 커뮤니티 게시판 State
   const [posts, setPosts] = useState<PostItem[]>([]);
   const [newAuthor, setNewAuthor] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
   const [newContent, setNewContent] = useState<string>('');
-  const [commentInputs, setCommentInputs] = useState<{ [postId: string]: { author: string; content: string } }>({});
+  const [commentInputs, setCommentInputs] = useState<{ [postId: string]: { author: string; password?: string; content: string } }>({});
 
-  // 관리자 삭제 모달 State
-  const [deleteTarget, setDeleteTarget] = useState<{ postId: string; commentId?: string } | null>(null);
-  const [adminPasswordInput, setAdminPasswordInput] = useState<string>('');
+  // 삭제 모달 State (삭제할 대상 및 대상 정보 포함)
+  const [deleteTarget, setDeleteTarget] = useState<{ postId: string; commentId?: string; originalPassword?: string } | null>(null);
+  const [deletePasswordInput, setDeletePasswordInput] = useState<string>('');
 
   const getRandomStudyItems = () => {
     const shuffled = [...koreanStudyDatabase].sort(() => 0.5 - Math.random());
@@ -464,11 +467,13 @@ export const App: React.FC = () => {
     const postsRef = ref(db, 'posts');
     push(postsRef, {
       author: newAuthor.trim() || (isKorean ? '익명' : 'ผู้โพสต์'),
+      password: newPassword.trim(),
       content: newContent,
       likes: 0,
       createdAt: new Date().toLocaleDateString('ko-KR')
     }).then(() => {
       setNewAuthor('');
+      setNewPassword('');
       setNewContent('');
     }).catch(err => {
       console.error("Post save error:", err);
@@ -483,7 +488,7 @@ export const App: React.FC = () => {
   };
 
   // 댓글 입력 상태 관리
-  const handleCommentInputChange = (postId: string, field: 'author' | 'content', value: string) => {
+  const handleCommentInputChange = (postId: string, field: 'author' | 'password' | 'content', value: string) => {
     setCommentInputs(prev => ({
       ...prev,
       [postId]: {
@@ -502,29 +507,39 @@ export const App: React.FC = () => {
     const commentsRef = ref(db, `posts/${postId}/comments`);
     push(commentsRef, {
       author: input.author?.trim() || (isKorean ? '익명' : 'ผู้ตอบ'),
+      password: input.password?.trim() || '',
       content: input.content,
       createdAt: new Date().toLocaleDateString('ko-KR')
     }).then(() => {
       setCommentInputs(prev => ({
         ...prev,
-        [postId]: { author: '', content: '' }
+        [postId]: { author: '', password: '', content: '' }
       }));
     });
   };
 
-  // 관리자 삭제 처리 모달 열기
-  const openDeleteModal = (postId: string, commentId?: string) => {
-    setDeleteTarget({ postId, commentId });
-    setAdminPasswordInput('');
+  // 삭제 처리 모달 열기
+  const openDeleteModal = (postId: string, commentId?: string, originalPassword?: string) => {
+    setDeleteTarget({ postId, commentId, originalPassword });
+    setDeletePasswordInput('');
   };
 
-  // 모달을 통해 관리자 번호 확인 후 삭제 수행
+  // 입력된 암호(사용자 본인 암호 OR 관리자 암호 1009) 검증 후 삭제 실행
   const handleConfirmDelete = () => {
-    if (adminPasswordInput === '1009') {
-      if (deleteTarget?.commentId) {
+    if (!deleteTarget) return;
+
+    const inputPwd = deletePasswordInput.trim();
+    const targetPwd = deleteTarget.originalPassword || '';
+
+    // 1) 관리자 암호 '1009' 일치 OR 2) 설정한 본인 암호(빈 문자열 제외) 일치 여부 확인
+    const isAdmin = inputPwd === '1009';
+    const isOwner = targetPwd !== '' && inputPwd === targetPwd;
+
+    if (isAdmin || isOwner) {
+      if (deleteTarget.commentId) {
         const commentRef = ref(db, `posts/${deleteTarget.postId}/comments/${deleteTarget.commentId}`);
         remove(commentRef);
-      } else if (deleteTarget?.postId) {
+      } else {
         const postRef = ref(db, `posts/${deleteTarget.postId}`);
         remove(postRef);
       }
@@ -822,13 +837,24 @@ export const App: React.FC = () => {
 
             {/* 글 작성 폼 */}
             <form onSubmit={handleCreatePost} className="post-form">
-              <input 
-                type="text"
-                className="community-input"
-                placeholder={isKorean ? "이름 (선택 사항)" : "ชื่อ (ไม่บังคับ)"}
-                value={newAuthor}
-                onChange={(e) => setNewAuthor(e.target.value)}
-              />
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <input 
+                  type="text"
+                  className="community-input"
+                  style={{ flex: 1 }}
+                  placeholder={isKorean ? "이름 (선택 사항)" : "ชื่อ (ไม่บังคับ)"}
+                  value={newAuthor}
+                  onChange={(e) => setNewAuthor(e.target.value)}
+                />
+                <input 
+                  type="password"
+                  className="community-input"
+                  style={{ flex: 1 }}
+                  placeholder={isKorean ? "비밀번호 (삭제용)" : "รหัสผ่าน (สำหรับลบ)"}
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </div>
               <textarea 
                 className="community-textarea"
                 placeholder={isKorean ? "내용을 입력하세요..." : "เขียนข้อความที่นี่..."}
@@ -859,8 +885,8 @@ export const App: React.FC = () => {
                           <span className="post-date">{post.createdAt}</span>
                           <button 
                             className="admin-delete-btn"
-                            onClick={() => openDeleteModal(post.id)}
-                            title={isKorean ? "관리자 삭제" : "ลบโดยผู้ดูแล"}
+                            onClick={() => openDeleteModal(post.id, undefined, post.password)}
+                            title={isKorean ? "게시글 삭제" : "ลบโพสต์"}
                           >
                             🗑️
                           </button>
@@ -892,7 +918,8 @@ export const App: React.FC = () => {
                                 <span className="comment-date">{comment.createdAt}</span>
                                 <button 
                                   className="admin-comment-delete-btn"
-                                  onClick={() => openDeleteModal(post.id, comment.id)}
+                                  onClick={() => openDeleteModal(post.id, comment.id, comment.password)}
+                                  title={isKorean ? "댓글 삭제" : "ลบความคิดเห็น"}
                                 >
                                   ✕
                                 </button>
@@ -908,6 +935,13 @@ export const App: React.FC = () => {
                             placeholder={isKorean ? "이름" : "ชื่อ"}
                             value={commentInputs[post.id]?.author || ''}
                             onChange={(e) => handleCommentInputChange(post.id, 'author', e.target.value)}
+                          />
+                          <input 
+                            type="password"
+                            className="comment-author-input"
+                            placeholder={isKorean ? "암호" : "รหัส"}
+                            value={commentInputs[post.id]?.password || ''}
+                            onChange={(e) => handleCommentInputChange(post.id, 'password', e.target.value)}
                           />
                           <input 
                             type="text"
@@ -931,30 +965,33 @@ export const App: React.FC = () => {
         </main>
       )}
 
-      {/* 관리자 암호 확인 모달 팝업 */}
+      {/* 암호 확인 및 삭제 모달 팝업 */}
       {deleteTarget && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h4>{isKorean ? "🔒 관리자 암호 확인" : "🔒 ยืนยันรหัสผ่านผู้ดูแลระบบ"}</h4>
-            <p>{isKorean ? "삭제를 진행하려면 암호를 입력하세요." : "กรุณากรอกรหัสผ่านเพื่อลบ"}</p>
+            <h4>{isKorean ? "🔒 삭제 암호 확인" : "🔒 ยืนยันรหัสผ่านเพื่อลบ"}</h4>
+            <p>
+              {isKorean 
+                ? "작성 시 입력한 암호 또는 관리자 암호를 입력하세요." 
+                : "กรุณากรอกรหัสผ่านที่ตั้งไว้ หรือรหัสผ่านผู้ดูแลระบบ"}
+            </p>
             <input 
               type="password"
               className="community-input"
-              style={{ width: '100%', marginBottom: '12px' }}
+              style={{ width: '100%' }}
               placeholder={isKorean ? "비밀번호 입력" : "ใส่รหัสผ่าน"}
-              value={adminPasswordInput}
-              onChange={(e) => setAdminPasswordInput(e.target.value)}
+              value={deletePasswordInput}
+              onChange={(e) => setDeletePasswordInput(e.target.value)}
             />
-            <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-              <button className="comment-submit-btn" onClick={handleConfirmDelete}>
-                {isKorean ? "확인" : "ตกลง"}
-              </button>
+            <div className="modal-buttons">
               <button 
-                className="comment-submit-btn" 
-                style={{ backgroundColor: '#718096' }}
+                className="cancel-btn"
                 onClick={() => setDeleteTarget(null)}
               >
                 {isKorean ? "취소" : "ยกเลิก"}
+              </button>
+              <button className="confirm-btn" onClick={handleConfirmDelete}>
+                {isKorean ? "확인" : "ตกลง"}
               </button>
             </div>
           </div>
